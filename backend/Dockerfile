@@ -4,7 +4,7 @@ WORKDIR /app
 
 COPY package*.json ./
 
-RUN npm install --force
+RUN npm install --production
 
 COPY . .
 
@@ -14,6 +14,6 @@ WORKDIR /app
 
 COPY --from=builder /app .
 EXPOSE 5000
-RUN npm install --only=production --force
+RUN npm install --only=production
 
 CMD ["npm", "start"]
