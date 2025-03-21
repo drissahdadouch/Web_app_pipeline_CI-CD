@@ -1,4 +1,4 @@
-FROM node:20-buster AS builder
+FROM node:20-alpine AS builder
 
 WORKDIR /app
 
@@ -8,7 +8,7 @@ RUN npm install --force
 
 COPY . .
 
-FROM node:16
+FROM node:20-slim
 
 WORKDIR /app
 

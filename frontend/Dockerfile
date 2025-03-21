@@ -1,4 +1,4 @@
-FROM node:20-buster AS builder
+FROM node:20-alpine AS builder
 
 WORKDIR /app
 COPY package*.json ./
@@ -6,7 +6,7 @@ RUN npm install  --force
 COPY . .
 RUN npm run build  # Commande pour construire l'application Next.js
 
-FROM node:16 AS stage-1
+FROM node:20-alpine
 
 WORKDIR /app
 COPY --from=builder /app .
