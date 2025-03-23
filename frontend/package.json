@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "test": "echo \"No tests defined\" && exit 0",
+    "coverage": "jest --coverage",
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
