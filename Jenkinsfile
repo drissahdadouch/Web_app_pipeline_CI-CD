@@ -4,6 +4,8 @@ pipeline{
         AWS_ACCESS_KEY_ID = credentials('AWS_ACCESS_KEY_ID')
         AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
         AWS_DEFAULT_REGION = "us-east-1"
+        SONAR_TOKEN = credentials('sonar_token')
+        EC2_IP = credentials('EC2_SERVER_IP')
         SONAR_SCANNER_HOME = tool 'sonarqube-scanner702';
     }
     stages{
@@ -60,7 +62,7 @@ pipeline{
                    -Dsonar.sources=. \
                    -Dsonar.host.url=http://127.0.0.1:9000 \
                    -Dsonar.javascript.lcov.reportPaths=./coverage/lcov.info \
-                   -Dsonar.token=sqp_c938e562bcb28ee470127ee0165685b15d6ffd0c
+                   -Dsonar.token=$SONAR_TOKEN
                 '''
             }
         } 
@@ -99,7 +101,7 @@ pipeline{
             steps{
                 sshagent(['204.236.201.79']) {
                 sh '''
-                    ssh -o StrictHostKeyChecking=no ubuntu@204.236.201.79 "
+                    ssh -o StrictHostKeyChecking=no ubuntu@${EC2_IP} "
                         docker pull drissahd/frontend_app
                         docker stop frontend_app || true
                         docker rm frontend_app || true
